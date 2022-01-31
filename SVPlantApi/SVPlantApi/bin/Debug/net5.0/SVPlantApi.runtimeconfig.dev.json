@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\Neethu\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\Neethu\\.nuget\\packages"
+    ]
+  }
+}
