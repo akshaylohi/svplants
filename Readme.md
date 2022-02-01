@@ -8,11 +8,11 @@ Starting React App:
 1.	Clone repo
 2.	CD into SVPlantsUI directory
 3.	Install dependencies using npm
-4.	Run command ìnpm startî
-Starting Backend app:
+4.	Run command ‚Äúnpm start‚Äù
+Starting Backend app
 1.	Clone repo
 2.	CD into SVPlantApi directory
-3.	Run command ìdotnet run -p ./SVPlantApi/SVPlantApi.csprojî
+3.	Run command ‚Äúdotnet run -p ./SVPlantApi/SVPlantApi.csproj‚Äù
 
 MSSQL server:
 1.	Connect to Database using the connection string in appsettings.json file.
