@@ -84,7 +84,12 @@ namespace SVPlantApi.PlantData
 
         static Boolean CanWater(Plant plant)
         {
-            Boolean timeOk = DateTime.Now.Subtract(plant.LastWateredTime).Seconds > 30;
+            DateTime currentTime = DateTime.Now;
+            Boolean timeOk = currentTime.Subtract(plant.LastWateredTime).TotalSeconds > 30;
+            //System.Diagnostics.Debug.WriteLine("Current time: " + currentTime);
+            //System.Diagnostics.Debug.WriteLine("Plant last watered time: " + plant.LastWateredTime);
+            //System.Diagnostics.Debug.WriteLine("time diff: " + currentTime.Subtract(plant.LastWateredTime));
+            //System.Diagnostics.Debug.WriteLine("time diff secs: " + currentTime.Subtract(plant.LastWateredTime).TotalSeconds);
             return   timeOk && plant.Status != "busy";
         }
 

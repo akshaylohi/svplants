@@ -1,0 +1,9 @@
+# dependencies
+/SVPlantsUI/node_modules
+/SVPlantsUI/.pnp
+/SVPlantsUI/.pnp.js
+
+
+
+# misc
+/SVPlantsUI/.DS_Store
