@@ -1,6 +1,7 @@
 import _ from "lodash";
 
-import { GET_PLANT, GET_PLANTS, EDIT_PLANT, ADD_PLANT, DELETE_PLANT, WATER_PLANT, STOP_WATER_PLANT, CLEAR_PLANTS } from "../actions/types";
+import { GET_PLANT, GET_PLANTS, EDIT_PLANT, ADD_PLANT, DELETE_PLANT, WATER_PLANT, WATER_ALL_PLANTS, 
+	STOP_WATER_ALL, STOP_WATER_PLANT, CLEAR_PLANTS } from "../actions/types";
 
 
 const INITIAL_STATE = {
@@ -23,6 +24,10 @@ export default (state = INITIAL_STATE, action) => {
 			return INITIAL_STATE;
         case WATER_PLANT:
             return { ...state, [action.payload.plantId]: action.payload };
+		case WATER_ALL_PLANTS:
+			return { ...state, ..._.mapKeys(action.payload, "plantId") };
+		case STOP_WATER_ALL:
+			return { ...state, ..._.mapKeys(action.payload, "plantId") };
         case STOP_WATER_PLANT:
             return { ...state, [action.payload.plantId]: action.payload };
 		default:

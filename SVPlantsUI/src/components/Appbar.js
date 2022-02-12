@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { AppBar, Box, Dialog, Toolbar, Button, DialogTitle, DialogContent, Grid, TextField, DialogActions } from '@material-ui/core';
+import { AppBar, Box, Dialog, CircularProgress, Toolbar, Button, DialogTitle, DialogContent, Grid, TextField, DialogActions } from '@material-ui/core';
 import { useState } from 'react';
 
 const Navbar = (props) => {
@@ -24,12 +24,34 @@ const Navbar = (props) => {
         toggleOpen();
     }
 
+    const handleWaterAll = e =>{
+        e.preventDefault();
+        props.setWaterAllStatus("pending");
+        props.waterAllPlants().then((response)=>{
+            props.setWaterAllStatus("busy");
+            console.log("status: ", response);
+            setTimeout(() => {
+                props.stopWaterAllPlants().then(()=>{
+                    props.setWaterAllStatus("ok");
+                }).catch((err)=>{
+                    
+                });
+            }, 10000);
+        }).catch((err)=>{
+            console.log("error: ", err);
+            props.setWaterAllStatus("ok");
+        });
+    }
+
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static">
+            <AppBar position="static" color="primary">
                 <Toolbar>
-                    <Button onClick={toggleOpen} variant='contained' color="primary">Add Plant</Button>
+                    <Button style={{margin: 10, width: '10vw'}} onClick={toggleOpen} variant='contained' color="secondary">Add Plant</Button>
+                    <Button style={{margin: 10, width: '10vw'}} onClick={handleWaterAll} disabled={props.waterAllStatus!="ok"} variant='contained' color="secondary">
+                        {props.waterAllStatus == "pending"? <CircularProgress color="inherit"/>: "Water All"}
+                        </Button>
                     <Dialog
                         open={dialogOpen}
                         onClose={toggleOpen}
