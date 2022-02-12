@@ -93,10 +93,6 @@ namespace SVPlantApi.PlantData
             var kind = currentTime.Kind;
             currentTime = TimeZoneInfo.ConvertTimeToUtc(currentTime);
             Boolean timeOk = currentTime.Subtract(plant.LastWateredTime).TotalSeconds > 30;
-            System.Diagnostics.Debug.WriteLine("Current time: " + currentTime);
-            System.Diagnostics.Debug.WriteLine("Plant last watered time: " + plant.LastWateredTime);
-            System.Diagnostics.Debug.WriteLine("time diff: " + currentTime.Subtract(plant.LastWateredTime).TotalSeconds);
-            System.Diagnostics.Debug.WriteLine("time ok: " + timeOk);
             return   timeOk && plant.Status != "busy";
         }
 
