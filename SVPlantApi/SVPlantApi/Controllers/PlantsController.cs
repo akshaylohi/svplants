@@ -102,6 +102,33 @@ namespace SVPlantApi.Controllers
         }
 
         [HttpGet]
+        [Route("api/[controller]/waterAll")]
+        public IActionResult WaterPlants()
+        {
+            var plants = _plantData.GetPlants();
+            Boolean okFlag = true;
+            if (plants.Count != 0)
+            {
+                foreach(Plant plant in plants)
+                {
+                    okFlag = _plantData.CanWater(plant);
+                }
+                if (okFlag)
+                {
+                    foreach(Plant plant in plants)
+                    {
+                        okFlag = _plantData.WaterPlant(plant.PlantId);
+                    }
+                }
+
+                return (okFlag ? Ok(_plantData.GetPlants()) : StatusCode(500));
+            }
+            return NotFound("Plant not found");
+
+
+        }
+
+        [HttpGet]
         [Route("api/[controller]/stopWatering/{plantId}")]
         public IActionResult StopWateringPlant(int plantId)
         {
@@ -113,6 +140,25 @@ namespace SVPlantApi.Controllers
                     return Ok(_plantData.GetPlant(plantId));
                 }
                 return StatusCode(500);
+            }
+            return NotFound("Plant not found");
+
+
+        }
+
+        [HttpGet]
+        [Route("api/[controller]/stopWaterAll")]
+        public IActionResult StopWaterPlants()
+        {
+            var plants = _plantData.GetPlants();
+            Boolean okFlag = true;
+            if (plants.Count != 0)
+            {
+                foreach (Plant plant in plants)
+                {
+                    okFlag = _plantData.StopWateringPlant(plant.PlantId);
+                }
+                return (okFlag ? Ok(_plantData.GetPlants()) : StatusCode(500));
             }
             return NotFound("Plant not found");
 

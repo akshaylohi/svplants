@@ -22,6 +22,8 @@ namespace SVPlantApi.PlantData
 
         Boolean StopWateringPlant(int PlantId);
 
-        
+        Boolean CanWater(Plant plant);
+
+
     }
 }

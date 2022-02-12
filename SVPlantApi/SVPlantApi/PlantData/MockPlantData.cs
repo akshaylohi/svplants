@@ -73,7 +73,7 @@ namespace SVPlantApi.PlantData
             return true;
         }
 
-        static Boolean CanWater(Plant plant)
+        public Boolean CanWater(Plant plant)
         {
             return DateTime.Now.Subtract(plant.LastWateredTime).Seconds > 30;
         }
