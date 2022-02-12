@@ -18,7 +18,9 @@ namespace SVPlantApi.PlantData
         public Plant AddPlant(Plant plant)
         {
             plant.Status = "ok";
-            plant.LastWateredTime = new DateTime();
+            plant.LastWateredTime = DateTime.Now;
+            var kind = plant.LastWateredTime.Kind;
+            plant.LastWateredTime = TimeZoneInfo.ConvertTimeToUtc(plant.LastWateredTime);
             _plantContext.Add(plant);
             _plantContext.SaveChanges();
             return plant;
@@ -56,7 +58,10 @@ namespace SVPlantApi.PlantData
                 return false;
             }
             plantObj.Status = "ok";
-            plantObj.LastWateredTime = (DateTime.Now);
+            DateTime currentTime = DateTime.Now;
+            var kind = currentTime.Kind;
+            plantObj.LastWateredTime = TimeZoneInfo.ConvertTimeToUtc(currentTime);
+            
             _plantContext.Plants.Update(plantObj);
             _plantContext.SaveChanges();
             return true;
@@ -85,11 +90,13 @@ namespace SVPlantApi.PlantData
         public Boolean CanWater(Plant plant)
         {
             DateTime currentTime = DateTime.Now;
+            var kind = currentTime.Kind;
+            currentTime = TimeZoneInfo.ConvertTimeToUtc(currentTime);
             Boolean timeOk = currentTime.Subtract(plant.LastWateredTime).TotalSeconds > 30;
-            //System.Diagnostics.Debug.WriteLine("Current time: " + currentTime);
-            //System.Diagnostics.Debug.WriteLine("Plant last watered time: " + plant.LastWateredTime);
-            //System.Diagnostics.Debug.WriteLine("time diff: " + currentTime.Subtract(plant.LastWateredTime));
-            //System.Diagnostics.Debug.WriteLine("time diff secs: " + currentTime.Subtract(plant.LastWateredTime).TotalSeconds);
+            System.Diagnostics.Debug.WriteLine("Current time: " + currentTime);
+            System.Diagnostics.Debug.WriteLine("Plant last watered time: " + plant.LastWateredTime);
+            System.Diagnostics.Debug.WriteLine("time diff: " + currentTime.Subtract(plant.LastWateredTime).TotalSeconds);
+            System.Diagnostics.Debug.WriteLine("time ok: " + timeOk);
             return   timeOk && plant.Status != "busy";
         }
 
