@@ -111,7 +111,7 @@ namespace SVPlantApi.Controllers
             {
                 foreach(Plant plant in plants)
                 {
-                    okFlag = _plantData.CanWater(plant);
+                    okFlag = okFlag && _plantData.CanWater(plant);
                 }
                 if (okFlag)
                 {
